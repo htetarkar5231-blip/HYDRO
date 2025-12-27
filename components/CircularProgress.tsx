@@ -32,13 +32,13 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
   return (
     <div className="relative flex items-center justify-center drop-shadow-xl" style={{ width: size, height: size }}>
       {/* Background droplets decoration (positioned absolutely) */}
-      <svg className="absolute top-10 right-4 w-6 h-6 text-water-400 opacity-80" viewBox="0 0 24 24" fill="currentColor">
+      <svg className="absolute top-10 right-4 w-6 h-6 text-water-400 opacity-80 dark:opacity-40" viewBox="0 0 24 24" fill="currentColor">
          <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
       </svg>
-      <svg className="absolute bottom-16 left-4 w-5 h-5 text-water-400 opacity-60" viewBox="0 0 24 24" fill="currentColor">
+      <svg className="absolute bottom-16 left-4 w-5 h-5 text-water-400 opacity-60 dark:opacity-30" viewBox="0 0 24 24" fill="currentColor">
          <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
       </svg>
-       <svg className="absolute bottom-10 left-8 w-4 h-4 text-water-400 opacity-50" viewBox="0 0 24 24" fill="currentColor">
+       <svg className="absolute bottom-10 left-8 w-4 h-4 text-water-400 opacity-50 dark:opacity-20" viewBox="0 0 24 24" fill="currentColor">
          <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
       </svg>
 
@@ -60,7 +60,7 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
           cx={center}
           cy={center}
           r={radius}
-          stroke="#DBEAFE"
+          className="stroke-blue-100 dark:stroke-slate-700 transition-colors duration-300"
           strokeWidth={strokeWidth}
           fill="transparent"
         />
@@ -79,15 +79,14 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
           style={{ transition: 'stroke-dashoffset 0.5s ease-in-out' }}
         />
         
-        {/* Inner solid fill to match design if needed, but design looks transparent/white center. 
-            Actually the design has a gradient fill inside the ring but slightly lighter. 
-            Let's put a subtle fill. */}
+        {/* Inner solid fill */}
          <circle
           cx={center}
           cy={center}
           r={radius - strokeWidth / 2}
           fill="#3B82F6"
-          fillOpacity="0.1"
+          fillOpacity="0.05"
+          className="dark:fill-slate-700 dark:fill-opacity-30"
         />
 
         {/* Decorative Dots */}
@@ -98,7 +97,7 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
             cy={pos.y}
             r={4}
             fill="white"
-            className="shadow-sm"
+            className="shadow-sm dark:fill-slate-800"
           />
         ))}
 
@@ -106,7 +105,7 @@ export const CircularProgress: React.FC<CircularProgressProps> = ({
       
       {/* Percentage Text */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className="text-5xl font-bold text-white drop-shadow-md font-sans">
+        <span className="text-5xl font-bold text-slate-700 dark:text-white drop-shadow-sm font-sans transition-colors duration-300">
           {Math.round(percentage)}%
         </span>
       </div>

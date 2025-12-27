@@ -4,12 +4,13 @@ import { DailyData } from '../types';
 
 interface DailyChartProps {
   data: DailyData[];
+  isDarkMode: boolean;
 }
 
-export const DailyChart: React.FC<DailyChartProps> = ({ data }) => {
+export const DailyChart: React.FC<DailyChartProps> = ({ data, isDarkMode }) => {
   return (
     <div className="w-full h-48 mt-8">
-      <div className="text-center text-slate-600 mb-2 text-sm font-medium">Daily Average</div>
+      <div className="text-center text-slate-600 dark:text-slate-400 mb-2 text-sm font-medium transition-colors duration-300">Daily Average</div>
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           data={data}
@@ -30,11 +31,18 @@ export const DailyChart: React.FC<DailyChartProps> = ({ data }) => {
             dataKey="day" 
             axisLine={false} 
             tickLine={false} 
-            tick={{ fill: '#94A3B8', fontSize: 12 }}
+            tick={{ fill: isDarkMode ? '#94A3B8' : '#94A3B8', fontSize: 12 }}
             dy={10}
           />
           <Tooltip 
-             contentStyle={{ backgroundColor: '#F0F9FF', borderRadius: '10px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+             contentStyle={{ 
+               backgroundColor: isDarkMode ? '#1E293B' : '#F0F9FF', 
+               borderRadius: '10px', 
+               border: isDarkMode ? '1px solid #334155' : 'none', 
+               boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+               color: isDarkMode ? '#E2E8F0' : '#1E293B'
+             }}
+             itemStyle={{ color: isDarkMode ? '#E2E8F0' : '#1E293B' }}
              cursor={{ stroke: '#3B82F6', strokeWidth: 1, strokeDasharray: '3 3' }}
           />
           <Area 
