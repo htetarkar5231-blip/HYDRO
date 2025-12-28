@@ -1,5 +1,7 @@
 {
   "name": "Hydro",
   "description": "A clean, aesthetic water tracking application with daily stats and AI-powered hydration tips.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [
+    "geolocation"
+  ]
 }

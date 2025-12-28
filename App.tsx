@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Leaf, Menu } from 'lucide-react';
+import { Leaf, Menu, Trophy } from 'lucide-react';
 import { CircularProgress } from './components/CircularProgress';
 import { WaterControls } from './components/WaterControls';
 import { DailyChart } from './components/DailyChart';
 import { AiCoach } from './components/AiCoach';
 import { Sidebar } from './components/Sidebar';
 import { DailyData } from './types';
+import { playWaterSound, playSuccessSound } from './utils/soundUtils';
 
 // Mock data for the chart
 const chartData: DailyData[] = [
@@ -20,13 +21,29 @@ const App: React.FC = () => {
   const [currentIntake, setCurrentIntake] = useState(1.5);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showCongrats, setShowCongrats] = useState(false);
+  const [hasCelebrated, setHasCelebrated] = useState(false);
+
   const goal = 3.0;
   
   // Calculate percentage capped at 100 for visual sanity
   const percentage = Math.min((currentIntake / goal) * 100, 100);
 
   const handleAddWater = (amount: number) => {
-    setCurrentIntake(prev => parseFloat((prev + amount).toFixed(1)));
+    playWaterSound();
+    
+    const newIntake = parseFloat((currentIntake + amount).toFixed(1));
+    setCurrentIntake(newIntake);
+
+    // Check if goal reached (and not already celebrated this session)
+    if (newIntake >= goal && !hasCelebrated) {
+      setHasCelebrated(true);
+      // Small delay to let the UI update and water sound finish
+      setTimeout(() => {
+        setShowCongrats(true);
+        playSuccessSound();
+      }, 600);
+    }
   };
 
   return (
@@ -39,6 +56,27 @@ const App: React.FC = () => {
           theme={theme}
           setTheme={setTheme}
         />
+
+        {/* Success Modal */}
+        {showCongrats && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm animate-in fade-in duration-300">
+             <div className="bg-white dark:bg-slate-800 rounded-3xl p-8 max-w-sm w-full shadow-2xl transform animate-in zoom-in-95 duration-200 text-center border border-white/20">
+                <div className="w-20 h-20 bg-yellow-100 dark:bg-yellow-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Trophy className="w-10 h-10 text-yellow-500 fill-yellow-500" />
+                </div>
+                <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-2">Congratulations!</h2>
+                <p className="text-slate-600 dark:text-slate-300 mb-8 font-medium">
+                    Congratulation you have completed today
+                </p>
+                <button 
+                    onClick={() => setShowCongrats(false)}
+                    className="w-full py-4 bg-blue-500 hover:bg-blue-600 text-white rounded-2xl font-bold text-lg shadow-lg shadow-blue-500/20 transition-all active:scale-95"
+                >
+                    Awesome!
+                </button>
+             </div>
+          </div>
+        )}
 
         {/* Mobile Frame Container */}
         <div className="w-full max-w-[400px] bg-[#F0F9FF] dark:bg-slate-900 min-h-[800px] relative flex flex-col transition-colors duration-300">
