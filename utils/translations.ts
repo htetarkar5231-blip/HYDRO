@@ -1,0 +1,70 @@
+import { Language } from '../types';
+
+export const translations = {
+  en: {
+    settings: "Settings",
+    appearance: "Appearance",
+    language: "Language",
+    english: "English",
+    myanmar: "Myanmar",
+    light: "Light",
+    dark: "Dark",
+    about: "About App",
+    builtWith: "Built with Gemini AI",
+    notifications: "Notifications",
+    reminders: "Reminders",
+    header: "DRINKING\nENOUGH WATER",
+    dailyAverage: "Daily Average",
+    coach: "Coach",
+    geminiTip: "Gemini Tip",
+    sources: "Sources",
+    congrats: "Congratulations!",
+    completed: "You have completed your goal today!",
+    awesome: "Awesome!",
+    aboutDesc: "A clean, aesthetic water tracking application designed to help you stay hydrated with daily stats and AI-powered tips.",
+    // Knowledge Screen
+    knowledgeTitle: "Why Hydrate?",
+    learnMore: "Why Hydrate?",
+    physHealth: "Physical Health",
+    physDesc: "Water regulates body temperature, lubricates joints, and delivers nutrients to cells. It keeps your organs functioning efficiently.",
+    mentalHealth: "Mental Clarity",
+    mentalDesc: "Hydration is key to staying focused. Even mild dehydration can lead to fatigue, confusion, and anxiety.",
+    skinHealth: "Radiant Skin",
+    skinDesc: "Proper hydration improves skin elasticity and helps flush out toxins, giving you a natural, healthy glow.",
+    close: "Close"
+  },
+  my: {
+    settings: "ဆက်တင်များ",
+    appearance: "အသွင်အပြင်",
+    language: "ဘာသာစကား",
+    english: "English",
+    myanmar: "မြန်မာ",
+    light: "အလင်း",
+    dark: "အမှောင်",
+    about: "အက်ပ်အကြောင်း",
+    builtWith: "Gemini AI ဖြင့်ဖန်တီးထားသည်",
+    notifications: "အသိပေးချက်များ",
+    reminders: "သတိပေးချက်များ",
+    header: "ရေလုံလောက်စွာ\nသောက်သုံးပါ",
+    dailyAverage: "နေ့စဉ်ပျမ်းမျှ",
+    coach: "နည်းပြ",
+    geminiTip: "Gemini အကြံပြုချက်",
+    sources: "ရင်းမြစ်များ",
+    congrats: "ဂုဏ်ယူပါတယ်!",
+    completed: "သင်ယနေ့အတွက် ရည်မှန်းချက်ပြည့်မီသွားပါပြီ!",
+    awesome: "ကောင်းပါတယ်!",
+    aboutDesc: "နေ့စဉ်စာရင်းဇယားများနှင့် AI စွမ်းအားသုံး အကြံပြုချက်များဖြင့် ရေဓာတ်ပြည့်ဝနေစေရန် ကူညီပေးမည့် သန့်ရှင်းသပ်ရပ်သော ရေမှတ်တမ်းအက်ပ်။",
+    // Knowledge Screen
+    knowledgeTitle: "ရေသောက်ခြင်း၏ အကျိုးကျေးဇူးများ",
+    learnMore: "အကျိုးကျေးဇူးများ",
+    physHealth: "ရုပ်ပိုင်းဆိုင်ရာ ကျန်းမာရေး",
+    physDesc: "ရေသည် ကိုယ်အပူချိန်ကို ထိန်းညှိပေးခြင်း၊ အဆစ်အမြစ်များကို ချောမွေ့စေခြင်းနှင့် ဆဲလ်များဆီသို့ အာဟာရပို့ဆောင်ပေးသည်။",
+    mentalHealth: "စိတ်ပိုင်းဆိုင်ရာ ကြည်လင်မှု",
+    mentalDesc: "ရေဓာတ်ပြည့်ဝခြင်းသည် အာရုံစိုက်မှုနှင့် စိတ်ခံစားချက်ကို ကောင်းမွန်စေသည်။ ရေဓာတ်နည်းပါးခြင်းက မောပန်းခြင်းကို ဖြစ်စေနိုင်သည်။",
+    skinHealth: "အသားအရေ ကျန်းမာရေး",
+    skinDesc: "ရေသောက်ခြင်းက အသားအရေကို စိုပြေစေပြီး အဆိပ်အတောက်များကို ဖယ်ရှားပေးကာ သဘာဝအတိုင်း တောက်ပစေပါသည်။",
+    close: "ပိတ်မည်"
+  }
+};
+
+export const getTranslation = (lang: Language) => translations[lang];

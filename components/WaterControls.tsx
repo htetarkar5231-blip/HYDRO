@@ -22,6 +22,11 @@ export const WaterControls: React.FC<WaterControlsProps> = ({ currentIntake, onA
   }, [currentIntake, prevIntake]);
 
   const handleClick = () => {
+    // Haptic feedback for button press (short tap)
+    if (typeof navigator !== 'undefined' && navigator.vibrate) {
+      navigator.vibrate(15);
+    }
+
     setIsAdding(true);
     onAdd(0.5);
     // Reset animation state shortly after

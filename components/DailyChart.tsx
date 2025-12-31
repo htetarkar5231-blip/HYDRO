@@ -1,16 +1,20 @@
 import React from 'react';
 import { AreaChart, Area, XAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { DailyData } from '../types';
+import { DailyData, Language } from '../types';
+import { getTranslation } from '../utils/translations';
 
 interface DailyChartProps {
   data: DailyData[];
   isDarkMode: boolean;
+  language: Language;
 }
 
-export const DailyChart: React.FC<DailyChartProps> = ({ data, isDarkMode }) => {
+export const DailyChart: React.FC<DailyChartProps> = ({ data, isDarkMode, language }) => {
+  const t = getTranslation(language);
+  
   return (
     <div className="w-full h-48 mt-8">
-      <div className="text-center text-slate-600 dark:text-slate-400 mb-2 text-sm font-medium transition-colors duration-300">Daily Average</div>
+      <div className="text-center text-slate-600 dark:text-slate-400 mb-2 text-sm font-medium transition-colors duration-300">{t.dailyAverage}</div>
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           data={data}

@@ -1,4 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
+import { Language } from "../types";
 
 const apiKey = process.env.API_KEY || '';
 
@@ -13,10 +14,14 @@ export interface TipResponse {
 export const getHydrationTip = async (
   currentIntake: number,
   timeOfDay: string,
-  location?: { lat: number; lng: number }
+  location?: { lat: number; lng: number },
+  language: Language = 'en'
 ): Promise<TipResponse> => {
   if (!ai) {
-    return { text: "Please configure your API Key to receive personalized AI hydration tips!" };
+    return { text: language === 'my' 
+      ? "AI အကြံပြုချက်များရယူရန် သင့် API Key ကို ထည့်သွင်းပါ။" 
+      : "Please configure your API Key to receive personalized AI hydration tips!" 
+    };
   }
 
   try {
@@ -43,6 +48,10 @@ export const getHydrationTip = async (
       `;
     }
 
+    if (language === 'my') {
+      prompt += ` Please translate the response into Burmese (Myanmar language). It should sound natural and encouraging.`;
+    }
+
     prompt += ` Do not use markdown for the main text. Just plain text.`;
 
     const response = await ai.models.generateContent({
@@ -53,7 +62,7 @@ export const getHydrationTip = async (
       }
     });
 
-    const text = response.text?.trim() || "Stay hydrated!";
+    const text = response.text?.trim() || (language === 'my' ? "ရေများများသောက်ပါ!" : "Stay hydrated!");
 
     // Extract grounding sources if available
     const sources = response.candidates?.[0]?.groundingMetadata?.groundingChunks
@@ -64,6 +73,6 @@ export const getHydrationTip = async (
     return { text, sources };
   } catch (error) {
     console.error("Error fetching tip:", error);
-    return { text: "Remember to drink water regularly!" };
+    return { text: language === 'my' ? "ရေပုံမှန်သောက်ဖို့ မမေ့ပါနဲ့!" : "Remember to drink water regularly!" };
   }
 };

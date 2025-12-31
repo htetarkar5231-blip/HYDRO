@@ -7,3 +7,5 @@ export interface HydrationState {
   current: number;
   goal: number;
 }
+
+export type Language = 'en' | 'my';

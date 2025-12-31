@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import { Sparkles, X, ExternalLink } from 'lucide-react';
 import { getHydrationTip, TipResponse } from '../services/geminiService';
+import { Language } from '../types';
+import { getTranslation } from '../utils/translations';
 
 interface AiCoachProps {
   currentIntake: number;
+  language: Language;
 }
 
-export const AiCoach: React.FC<AiCoachProps> = ({ currentIntake }) => {
+export const AiCoach: React.FC<AiCoachProps> = ({ currentIntake, language }) => {
   const [tipData, setTipData] = useState<TipResponse | null>(null);
   const [loading, setLoading] = useState(false);
+  const t = getTranslation(language);
 
   const handleGetTip = async () => {
     setLoading(true);
@@ -41,7 +45,7 @@ export const AiCoach: React.FC<AiCoachProps> = ({ currentIntake }) => {
       console.log("Could not retrieve location, proceeding with time-only context.");
     }
 
-    const data = await getHydrationTip(currentIntake, timeString, location);
+    const data = await getHydrationTip(currentIntake, timeString, location, language);
     setTipData(data);
     setLoading(false);
   };
@@ -61,7 +65,7 @@ export const AiCoach: React.FC<AiCoachProps> = ({ currentIntake }) => {
           ) : (
             <>
               <Sparkles size={20} />
-              <span className="text-sm font-medium pr-1">Coach</span>
+              <span className="text-sm font-medium pr-1">{t.coach}</span>
             </>
           )}
         </button>
@@ -71,7 +75,7 @@ export const AiCoach: React.FC<AiCoachProps> = ({ currentIntake }) => {
         <div className="bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-xl border border-blue-100 dark:border-slate-700 max-w-xs animate-in slide-in-from-bottom-5 fade-in duration-300">
           <div className="flex justify-between items-start mb-2">
             <h3 className="text-sm font-bold text-blue-600 dark:text-blue-400 flex items-center gap-1">
-              <Sparkles size={14} /> Gemini Tip
+              <Sparkles size={14} /> {t.geminiTip}
             </h3>
             <button onClick={closeTip} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
               <X size={16} />
@@ -85,7 +89,7 @@ export const AiCoach: React.FC<AiCoachProps> = ({ currentIntake }) => {
           {tipData.sources && tipData.sources.length > 0 && (
             <div className="mt-3 pt-2 border-t border-slate-100 dark:border-slate-700">
               <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wider block mb-1">
-                Sources
+                {t.sources}
               </span>
               <div className="flex flex-wrap gap-2">
                 {tipData.sources.map((source, index) => (
